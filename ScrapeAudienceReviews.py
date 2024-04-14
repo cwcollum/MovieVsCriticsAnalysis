@@ -1,18 +1,21 @@
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
 import requests
 import time
 import pandas as pd
 import os
 
-df = pd.DataFrame(columns=['Dates', 'Scores', 'Reviews'])
-
 movie_list = pd.read_csv('movie_list.csv', names=['Movie Name'])
 
 for index, title in movie_list.iterrows():
+    df = pd.DataFrame(columns=['Dates', 'Scores', 'Reviews'])
     movie_title = title['Movie Name']
+
     url = 'https://www.rottentomatoes.com/m/'+movie_title+'/reviews?type=user'
-    page = urlopen(url)
+    headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'}
+    request = Request(url, headers=headers)
+
+    page = urlopen(request, timeout=3)
     html = page.read().decode("utf-8")
     soup = BeautifulSoup(html, "html.parser")
 
