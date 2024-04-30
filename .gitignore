@@ -2,3 +2,6 @@ models/Phi-3-mini-128k-instruct.fp16.bin
 .vscode/settings.json
 data_combined.csv
 data_embeddings.csv
+output384.csv
+output100.csv
+data_minilm_tokenized.csv
