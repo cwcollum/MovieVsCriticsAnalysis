@@ -5,3 +5,11 @@ data_embeddings.csv
 output384.csv
 output100.csv
 data_minilm_tokenized.csv
+data_tokens/*
+embeddings_384.dat
+embeddings.db
+embeddings.db.wal
+output384.db
+pca.pkl
+__pycache__/EmbeddingDB.cpython-310.pyc
+utils/__pycache__/meanpooling.cpython-310.pyc
