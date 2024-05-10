@@ -30,9 +30,9 @@ for index, title in movie_list.iterrows():
     data = r.json()
     for sample in data['reviews']:
         score = ""
-        if(sample['rating'] > 3):
+        if(sample['rating'] > 2.5):
             score = "positive"
-        elif(sample['rating'] < 3):
+        elif(sample['rating'] < 2.5):
             score = "negative"
         else:
             score = "neutral"
