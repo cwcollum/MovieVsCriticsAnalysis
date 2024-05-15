@@ -10,6 +10,7 @@ embeddings_384.dat
 embeddings.db
 embeddings.db.wal
 output384.db
-pca.pkl
 __pycache__/EmbeddingDB.cpython-310.pyc
 utils/__pycache__/meanpooling.cpython-310.pyc
+*.pkl
+*.png
