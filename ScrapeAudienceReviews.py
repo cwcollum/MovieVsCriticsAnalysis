@@ -8,7 +8,7 @@ import os
 movie_list = pd.read_csv('movie_list.csv', names=['Movie Name'])
 
 for index, title in movie_list.iterrows():
-    df = pd.DataFrame(columns=['Dates', 'Scores', 'Reviews'])
+    df = pd.DataFrame(columns=['Dates', 'Scores', 'Reviews', 'Sentiment'])
     movie_title = title['Movie Name']
 
     url = 'https://www.rottentomatoes.com/m/'+movie_title+'/reviews?type=user'
@@ -29,14 +29,15 @@ for index, title in movie_list.iterrows():
     r = requests.get(endpoint)
     data = r.json()
     for sample in data['reviews']:
-        score = ""
-        if(sample['rating'] > 3):
-            score = "positive"
-        elif(sample['rating'] < 3):
-            score = "negative"
+        score = sample['rating']
+        sentiment = ""
+        if(score > 2.5):
+            sentiment = "positive"
+        elif(score < 2.5):
+            sentiment = "negative"
         else:
-            score = "neutral"
-        df.loc[len(df.index)] = [sample['creationDate'], score, sample['quote']]
+            sentiment = "neutral"
+        df.loc[len(df.index)] = [sample['creationDate'], score, sample['quote'], sentiment]
 
     for i in range(100):
         if(data['pageInfo']['hasNextPage'] == True):
@@ -45,14 +46,15 @@ for index, title in movie_list.iterrows():
             data = r.json()
             time.sleep(0.2)
             for sample in data['reviews']:
-                score = ""
-                if(sample['rating'] > 2.5):
-                    score = "positive"
-                elif(sample['rating'] < 2.5):
-                    score = "negative"
+                score = sample['rating']
+                sentiment = ""
+                if(score > 2.5):
+                    sentiment = "positive"
+                elif(score < 2.5):
+                    sentiment = "negative"
                 else:
-                    score = "neutral"
-                df.loc[len(df.index)] = [sample['creationDate'], score, sample['quote']]
+                    sentiment = "neutral"
+                df.loc[len(df.index)] = [sample['creationDate'], score, sample['quote'], sentiment]
             print('Request ', i, ' succeeded')
         else:
             break
